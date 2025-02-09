@@ -148,6 +148,8 @@
 				DEVELOPMENT_TEAM = 65R2J66XYN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sunsetify/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Howdy, partner! We need your location to track the perfect sunset. Saddle up and tap 'Allow' to ride into the golden hour!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Howdy, partner! We need your location to track the perfect sunset. Saddle up and tap 'Allow' to ride into the golden hour!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -176,6 +178,8 @@
 				DEVELOPMENT_TEAM = 65R2J66XYN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sunsetify/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Howdy, partner! We need your location to track the perfect sunset. Saddle up and tap 'Allow' to ride into the golden hour!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Howdy, partner! We need your location to track the perfect sunset. Saddle up and tap 'Allow' to ride into the golden hour!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -49,6 +49,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
  
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueIdentifier",
+           let nextVC = segue.destination as? WeatherViewController {
+            print("go to page")
+            nextVC.delegate = self
+        }
+    }
+    
     func animateFloatingEffect(_ imageView: UIImageView) {
         let floatUp = CGAffineTransform(translationX: 0, y: -5) // Moves slightly up
         let floatDown = CGAffineTransform(translationX: 0, y: 5) // Moves slightly down

@@ -37,6 +37,9 @@
                                 <size key="titleShadowOffset" width="6" height="7"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center"/>
+                                <connections>
+                                    <segue destination="g6a-0e-mYL" kind="presentation" identifier="SegueIdentifier" modalPresentationStyle="fullScreen" id="62s-n0-SIz"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="20" background="Password" translatesAutoresizingMaskIntoConstraints="NO" id="4ep-JZ-xAX">
                                 <rect key="frame" x="86" y="396" width="231" height="34"/>
@@ -75,19 +78,33 @@
                     <view key="view" contentMode="scaleToFill" id="jFt-kA-N3q">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bBS-HZ-OPh">
+                                <rect key="frame" x="81" y="266" width="240" height="326"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vXi-YK-4lS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Bsq-gT-y6j"/>
+                    <connections>
+                        <outlet property="swiftUIViewContainer" destination="bBS-HZ-OPh" id="48f-D9-aW2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yg1-NK-Nfh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="967" y="-20"/>
+            <point key="canvasLocation" x="965.67164179104475" y="-20.594965675057207"/>
         </scene>
     </scenes>
     <resources>
         <image name="Password" width="128" height="128"/>
         <image name="cowgirlHat" width="512" height="404"/>
         <image name="lasso" width="360" height="360"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
