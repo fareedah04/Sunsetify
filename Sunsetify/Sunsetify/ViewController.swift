@@ -6,22 +6,33 @@
 //
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var lasso: UIImageView!
+    @IBOutlet weak var cowGirlHat: UIImageView!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var username: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
+        username.delegate = self
+        password.delegate = self
+        
         setGradientBackground()
         addBlurEffect()
         addFloatingClouds()
-//        
-//        loginButton.setTitleColor(UIColor.white, for: .normal)  // Optional: Change text color
-//        loginButton.backgroundColor = UIColor.systemYellow
-//        loginButton.layer.cornerRadius = 10  // Optional: Rounded corners for a better look
-//        loginButton.layer.masksToBounds = true
-    
-        
+        addBackgroundBox()
+        styleTextField(username)
+        styleTextField(password)
+        animateFloatingEffect(cowGirlHat)
+        animateFloatingEffect(lasso)
+
+
+
+//        nameField.delegate = self
+
         // Create an image view with your image
            let imageView = UIImageView(image: UIImage(named: "Sunsetify"))  // Use the exact image name
            
@@ -37,8 +48,96 @@ class ViewController: UIViewController {
  
     }
     
+    func animateFloatingEffect(_ imageView: UIImageView) {
+        let floatUp = CGAffineTransform(translationX: 0, y: -5) // Moves slightly up
+        let floatDown = CGAffineTransform(translationX: 0, y: 5) // Moves slightly down
+        
+        UIView.animateKeyframes(withDuration: 1.5, delay: 0, options: [.autoreverse, .repeat], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
+                imageView.transform = floatUp.rotated(by: -0.05) // Slight tilt left
+            }
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                imageView.transform = floatDown.rotated(by: 0.05) // Slight tilt right
+            }
+        })
+    }
+
+
+    
+    func addBackgroundBox() {
+        print("adding box")
+        let backgroundBox = UIView()
+        backgroundBox.backgroundColor = UIColor.white.withAlphaComponent(0.3) // Semi-transparent white
+        backgroundBox.layer.cornerRadius = 20
+        backgroundBox.layer.masksToBounds = true
+
+        // Add shadow for depth
+        backgroundBox.layer.shadowColor = UIColor.black.cgColor
+        backgroundBox.layer.shadowOpacity = 0.1
+        backgroundBox.layer.shadowOffset = CGSize(width: 2, height: 4)
+        backgroundBox.layer.shadowRadius = 10
+
+        backgroundBox.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(backgroundBox)
+        self.view.insertSubview(backgroundBox, belowSubview: loginButton)
+        self.view.insertSubview(backgroundBox, belowSubview: password)
+
+
+        // Apply constraints
+        NSLayoutConstraint.activate([
+            backgroundBox.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            backgroundBox.topAnchor.constraint(equalTo: username.topAnchor, constant: -30),
+            backgroundBox.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
+            backgroundBox.bottomAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30) // Adjusts height dynamically
+        ])
+
+        // Add blur effect
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundBox.addSubview(blurView)
+
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: backgroundBox.topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: backgroundBox.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: backgroundBox.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: backgroundBox.bottomAnchor)
+        ])
+    }
+
+
+
+
+    func styleTextField(_ textField: UITextField) {
+        textField.layer.cornerRadius = textField.frame.height / 2  // Fully rounded
+        textField.layer.masksToBounds = true  // Ensures content is clipped inside the rounded
+        
+        textField.layer.cornerRadius = 15
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.white.cgColor
+        textField.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        textField.textColor = .white
+        textField.font = UIFont(name: "Avenir-Book", size: 18)
+        
+        // Add left padding
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+        
+        // Add subtle shadow
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOpacity = 0.2
+        textField.layer.shadowOffset = CGSize(width: 2, height: 2)
+        textField.layer.shadowRadius = 5
+    }
+
+    
     func styleButton(_ button: UIButton) {
+        button.layer.cornerRadius = button.frame.height / 2  // Fully rounded
+        button.layer.masksToBounds = true  // Ensures content is clipped inside the rounded shape
         button.layer.cornerRadius = 15
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
         button.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -73,7 +172,6 @@ class ViewController: UIViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
 
-        // 🎨 Soft pastel sunset colors with yellow glow
         gradientLayer.colors = [
             UIColor(red: 1.0, green: 0.65, blue: 0.7, alpha: 1.0).cgColor,  // Warm pink
             UIColor(red: 0.9, green: 0.7, blue: 0.9, alpha: 1.0).cgColor,  // Lavender
@@ -100,7 +198,6 @@ class ViewController: UIViewController {
         // Define **fixed** Y positions to prevent overlap
         let cloudData: [(y: CGFloat, size: CGFloat, speed: Double)] = [
             (y: 100, size: 350, speed: 30), // High cloud, big, slow
-            (y: 150, size: 400, speed: 40), // Middle cloud, large, medium speed
             (y: 230, size: 400, speed: 50), // Middle cloud, large, medium speed
             (y: 330, size: 200, speed: 35), // Lower cloud, smaller
             (y: 380, size: 300, speed: 25), // Lower cloud, smaller
@@ -133,6 +230,21 @@ class ViewController: UIViewController {
             cloud.frame.origin.x = endX // Move across the screen
         }, completion: nil)
     }
+    
+    
+    // Called when 'return' key pressed
+
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user clicks on the view outside of the UITextField
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 
 
 }
