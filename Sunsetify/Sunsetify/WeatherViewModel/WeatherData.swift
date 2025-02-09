@@ -2,7 +2,7 @@
 //  WeatherData.swift
 //  WeatherAppTutorial
 //
-//  Created by Eymen on 16.07.2023.
+// 
 //
 
 // Import necessary frameworks
@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 // Define a struct to hold weather data
-struct WeatherData {
+struct WeatherData: Equatable {
     let locationName: String
     let temperature: Double
     let sunsetTime: Int
@@ -41,6 +41,7 @@ struct Weather: Codable {
 
 struct PlaceData {
     let scenicPlace: String
+    //let imageUrl: String
 }
 
 // Geoapify API response models
@@ -49,14 +50,21 @@ struct GeoapifyResponse: Codable {
 }
 
 struct ScenicPlace: Codable {
-    let id: String
-    let properties: [Properties]
+    let properties: Properties
 }
 
 struct Properties: Codable {
     let name: String
-    let category: String
+   // let datasource: DataSource
 }
+
+//struct DataSource: Codable {
+//    let raw: Raw
+//}
+//
+//struct Raw: Codable {
+//    let image: String
+//}
 
 // Define a class to manage location and update it
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {

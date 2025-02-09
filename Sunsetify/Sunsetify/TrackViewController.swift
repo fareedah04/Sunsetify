@@ -31,7 +31,43 @@ class TrackViewController: UIViewController {
         setGradientBackground()
         addBlurEffect()
         addFloatingClouds()
+        // Styling the search bar (moodField)
+         styleMoodField()
         
+    }
+    
+    private func styleMoodField() {
+        // Set the background color of the text field
+        moodField.backgroundColor = UIColor.white.withAlphaComponent(0.7)  // Light, transparent background
+
+        // Set corner radius for rounded corners
+        moodField.layer.cornerRadius = 15.0
+        moodField.clipsToBounds = true
+
+        // Set padding inside the text field (left and right padding)
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: moodField.frame.height))
+        moodField.leftView = paddingView
+        moodField.leftViewMode = .always
+
+        // Set the font and font size for the text
+        moodField.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+
+        // Set the text field placeholder text style
+        moodField.placeholder = "What's the vibe???"
+        moodField.attributedPlaceholder = NSAttributedString(
+            string: "What's the vibe???",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+
+        // Set border properties
+        moodField.layer.borderWidth = 1.0
+        moodField.layer.borderColor = UIColor.white.cgColor  // White border for contrast
+
+        // Add an inner shadow (optional aesthetic touch)
+        moodField.layer.shadowColor = UIColor.black.cgColor
+        moodField.layer.shadowOffset = CGSize(width: 0, height: 2)
+        moodField.layer.shadowOpacity = 0.3
+        moodField.layer.shadowRadius = 4
     }
     
     
