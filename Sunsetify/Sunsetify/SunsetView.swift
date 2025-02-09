@@ -14,6 +14,7 @@ struct SunsetView: View {
     @State private var weatherData: WeatherData?
     @State private var placeData: PlaceData?
     @StateObject private var imageLoader = ImageLoader()
+    @State private var countdown: String = "Loading..."
     
     var body: some View {
         VStack {
@@ -28,6 +29,10 @@ struct SunsetView: View {
                 Text("The sun sets at \(formattedSunsetTime())")
                     .font(.custom("", size: 10))
                     .padding()
+                
+                Text("Countdown: \(countdown)")
+                                    .font(.headline)
+                                    .padding()
                 
                 VStack {
                     Text("\(weatherData.locationName)")
@@ -75,6 +80,10 @@ struct SunsetView: View {
                 await placesTask
             }
     }
+        .onChange(of: weatherData) { newValue in
+                    // Start updating the countdown after the weather data is available
+                    updateCountdown()
+                }
 }
     
     // Fetch weather data for the given location
@@ -133,6 +142,36 @@ struct SunsetView: View {
         
         // Format the date into a string
         return dateFormatter.string(from: sunsetDate)
+    }
+    
+    private func updateCountdown() {
+        guard let sunsetTime = weatherData?.sunsetTime else { return }
+        
+        // Convert sunset time to Date
+        let sunsetDate = Date(timeIntervalSince1970: TimeInterval(sunsetTime))
+        
+        // Create a timer that updates every second
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            let currentTime = Date()
+            let remainingTime = sunsetDate.timeIntervalSince(currentTime)
+            
+            if remainingTime > 0 {
+                let hours = Int(remainingTime) / 3600
+                let minutes = (Int(remainingTime) % 3600) / 60
+                let seconds = Int(remainingTime) % 60
+                
+                // Update the countdown text
+                if hours > 0 {
+                    countdown = "\(hours) hrs \(minutes) mins to sunset"
+                } else if minutes > 0 {
+                    countdown = "\(minutes) mins \(seconds) secs to sunset"
+                } else {
+                    countdown = "\(seconds) secs to sunset"
+                }
+            } else {
+                countdown = "Sunset has passed!"
+            }
+        }
     }
 }
 

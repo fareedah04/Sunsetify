@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 // Define a struct to hold weather data
-struct WeatherData {
+struct WeatherData: Equatable {
     let locationName: String
     let temperature: Double
     let sunsetTime: Int
