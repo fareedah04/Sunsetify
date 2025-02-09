@@ -26,7 +26,7 @@ class APIService {
         return URLRequest(url: url)
     }
     
-    func createURLRequest(moodField:String) -> URLRequest? {
+    func createSearchURLRequest(moodField:String) -> URLRequest? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = APIConstants.apiHost
@@ -51,12 +51,12 @@ class APIService {
         return urlRequest
     }
     
+    
     func search(moodField:String) async throws -> [String] {
-        guard let urlRequest = createURLRequest(moodField: moodField) else { throw NetworkError.invalidURL }
+        guard let urlRequest = createSearchURLRequest(moodField: moodField) else { throw NetworkError.invalidURL }
         
-//        let (data, _) = try await URLSession.shared.data(for: urlRequest)
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
-
+        
         if let httpResponse = response as? HTTPURLResponse {
             print("Status Code: \(httpResponse.statusCode)")
             if httpResponse.statusCode != 200 {
@@ -71,32 +71,44 @@ class APIService {
         let song = items.shuffled()
         let songs = song.map({$0.name})
         let songsID = song.map({$0.id})
-        let songsArtists = song.map({$0.artists})
+        guard let artists = song.first?.artists else { return [""] }
+        let artistNames = artists.map({ $0.name }).joined(separator: ", ")
+        
         guard let songTitle = songs.first else { return [""] }
-        guard let songTitleID = songsID.first else { return [""] }
-        guard let songArtists = songsArtists.first else {return [""] }
+//        guard let songTitleID = songsID.first else { return [""] }
+        guard let imageURL = song.first?.album.images.first?.url else { return [""] }
+        
         songInfo.append(songTitle)
+        songInfo.append(artistNames)
+        songInfo.append(imageURL)
         
         return songInfo
     }
     
+    struct Response: Codable {
+        let tracks: Track
+    }
     
-}
-
-struct Response: Codable {
-    let tracks: Track
-}
-
-struct Track: Codable {
-    let items: [Item]
-}
-
-struct Item: Codable {
-    let name: String
-    let id: String
-    let artists: [Artist]
-        
-    struct Artist: Codable {
+    struct Track: Codable {
+        let items: [Item]
+    }
+    
+    struct Album: Codable {
+        let images: [APIImage]
+    }
+    
+    struct APIImage: Codable {
+        let url: String
+    }
+    
+    struct Item: Codable {
         let name: String
+        let id: String
+        let artists: [Artist]
+        let album: Album
+        
+        struct Artist: Codable {
+            let name: String
+        }
     }
 }
