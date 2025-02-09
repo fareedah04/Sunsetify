@@ -75,12 +75,13 @@ class APIService {
         let artistNames = artists.map({ $0.name }).joined(separator: ", ")
         
         guard let songTitle = songs.first else { return [""] }
-//        guard let songTitleID = songsID.first else { return [""] }
+        guard let songTitleID = songsID.first else { return [""] }
         guard let imageURL = song.first?.album.images.first?.url else { return [""] }
         
         songInfo.append(songTitle)
         songInfo.append(artistNames)
         songInfo.append(imageURL)
+        songInfo.append(songTitleID)
         
         return songInfo
     }

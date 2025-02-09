@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -79,6 +80,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR9-yb-O1M">
+                                <rect key="frame" x="149" y="689" width="94" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" buttonSize="large">
+                                    <imageReference key="image" image="play (1)" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="semibold"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="playPausedTapped:" destination="7fW-eQ-abp" eventType="touchUpInside" id="rjD-vo-iD6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bMA-2Y-Qri"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -86,6 +100,7 @@
                     <connections>
                         <outlet property="artistName" destination="4e4-Ra-GxO" id="nIj-Ul-uUU"/>
                         <outlet property="moodField" destination="ioD-rp-Oti" id="2xo-CZ-LEv"/>
+                        <outlet property="pausePlayButton" destination="uR9-yb-O1M" id="dZv-Tc-iyn"/>
                         <outlet property="songImage" destination="hM8-LT-dYN" id="8xX-0m-4DH"/>
                         <outlet property="songTitle" destination="9kl-KY-fZn" id="I4F-Xx-Pgi"/>
                     </connections>
@@ -96,6 +111,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="play (1)" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

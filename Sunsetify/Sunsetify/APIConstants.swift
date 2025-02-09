@@ -11,8 +11,8 @@ import Foundation
 enum APIConstants {
     static let apiHost = "api.spotify.com"
     static let authHost = "accounts.spotify.com"
-    static let clientId = "67e749ccfaff40c9ad7e293e69838922"
-    static let clientSecret = "5be9b067330d42558192c97f86128512"
+    static let clientId = "0778aa32b89e4f4b8ae03776cf4f8b8c"
+    static let clientSecret = "524dc584008544a0b2aee9db62a22466"
     static let redirectUri = "https://www.google.com"
     static let responseType = "token"
     static let scopes = "user-read-private"
