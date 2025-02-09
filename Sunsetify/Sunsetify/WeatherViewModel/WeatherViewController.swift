@@ -14,7 +14,20 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
+        
+        // Create the SwiftUI view
+        let contentView = SunsetView()
+        
+        // Create a UIHostingController with the SwiftUI view
+        let hostingController = UIHostingController(rootView: contentView)
+        
+        // Add the hosting controller as a child view controller
+        addChild(hostingController)
+        hostingController.view.frame = view.bounds // Make it fill the screen
+        view.addSubview(hostingController.view)
+        
+        // Notify the hosting controller that it was added
+        hostingController.didMove(toParent: self)
     }
     
 
