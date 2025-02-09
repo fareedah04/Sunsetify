@@ -10,13 +10,16 @@ import SwiftUI
 
 class WeatherViewController: UIViewController {
 
+    @IBOutlet weak var sunsetImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        sunsetImage.image = UIImage(named: "SunsetIcon")
         // Create the SwiftUI view
         let contentView = SunsetView()
+       
         
         // Create a UIHostingController with the SwiftUI view
         let hostingController = UIHostingController(rootView: contentView)
