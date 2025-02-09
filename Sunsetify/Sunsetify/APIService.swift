@@ -51,7 +51,7 @@ class APIService {
         return urlRequest
     }
     
-    func search(moodField:String) async throws -> String {
+    func search(moodField:String) async throws -> [String] {
         guard let urlRequest = createURLRequest(moodField: moodField) else { throw NetworkError.invalidURL }
         
 //        let (data, _) = try await URLSession.shared.data(for: urlRequest)
@@ -65,12 +65,19 @@ class APIService {
         }
         let decoder = JSONDecoder()
         let results = try decoder.decode(Response.self, from: data)
-
+        
+        var songInfo: [String] = []
         let items = results.tracks.items
         let song = items.shuffled()
         let songs = song.map({$0.name})
-        guard let songTitle = songs.first else { return "" }
-        return songTitle
+        let songsID = song.map({$0.id})
+        let songsArtists = song.map({$0.artists})
+        guard let songTitle = songs.first else { return [""] }
+        guard let songTitleID = songsID.first else { return [""] }
+        guard let songArtists = songsArtists.first else {return [""] }
+        songInfo.append(songTitle)
+        
+        return songInfo
     }
     
     
@@ -86,4 +93,10 @@ struct Track: Codable {
 
 struct Item: Codable {
     let name: String
+    let id: String
+    let artists: [Artist]
+        
+    struct Artist: Codable {
+        let name: String
+    }
 }

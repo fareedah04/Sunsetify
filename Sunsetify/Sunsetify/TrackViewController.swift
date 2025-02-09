@@ -12,6 +12,9 @@ class TrackViewController: UIViewController {
 
     @IBOutlet weak var moodField: UITextField!
     
+    @IBOutlet weak var artistName: UILabel!
+    @IBOutlet weak var songTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("App loaded")
