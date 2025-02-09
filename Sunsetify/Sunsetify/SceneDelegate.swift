@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +18,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+//        // Create an instance of your SwiftUI ContentView
+//                let contentView = SunsetView()
+//
+//                // Embed the SwiftUI view in a UIHostingController
+//                let hostingController = UIHostingController(rootView: contentView)
+//
+//                // Initialize the window with the window scene
+//                window = UIWindow(windowScene: windowScene)
+//                
+//                // Set the root view controller to be the hosting controller
+//                window?.rootViewController = hostingController
+//
+//                // Make the window key and visible
+//                window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
